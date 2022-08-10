@@ -13,11 +13,6 @@ export const setJSExceptionHandler = (customHandler = noop, allowedInDevMode = f
   const allowed = allowedInDevMode ? true : !__DEV__;
   if (allowed) {
     global.ErrorUtils.setGlobalHandler(customHandler);
-    const consoleError = console.error;
-    console.error = (...args) => {
-      global.ErrorUtils.reportError(...args);
-      consoleError(...args);
-    };
   } else {
     console.log("Skipping setJSExceptionHandler: Reason: In DEV mode and allowedInDevMode = false");
   }
